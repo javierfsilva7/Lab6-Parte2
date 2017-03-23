@@ -9,26 +9,27 @@
             
         select
     
-        c.nombre,
-        c.documento,
-        c.telefono,
-        c.direccion,
-        c.email,
-        c.vetado,
+        c.nombre as cliente_nombre,
+        c.documento as cliente_documento,
+        c.telefono as cliente_telefono,
+        c.direccion as cliente_direccion,
+        c.email as cliente_email,
+        c.vetado as cliente_vetado,
     
-        ir.id ,
-        ir.fechainiciorenta ,
-        ir.fechafinrenta ,
+        ir.id as irentado_id,
+        ir.fechainiciorenta as irentado_fechainiciorenta,
+        ir.fechafinrenta as irentado_fechafinrenta,
     
-        i.id ,
-        i.nombre ,
-        i.descripcion ,
-        i.fechalanzamiento ,
-        i.tarifaxdia ,
-        i.formatorenta ,
-        i.genero ,        
-        ti.id ,
-        ti.descripcion 
+        i.id as item_id,
+        i.nombre as item_nombre,
+        i.descripcion as item_descripcion,
+        i.fechalanzamiento as item_fechalanzamiento ,
+        i.tarifaxdia as item_tarifaxdia,
+        i.formatorenta as item_formatorenta ,
+        i.genero as item_genero ,        
+        
+        ti.id as tItem_id,
+        ti.descripcion as tItem_descripcion
 
     
         FROM VI_CLIENTES as c 
@@ -39,10 +40,7 @@
    
     </select>
 
-    select nombre, documento, telefono, direccion, email, vetado, id, fechainiciorenta, 
-    fechafinrenta, id, nombre, descripcion, fechalanzamiento, tarifaxdia, formatorenta, 
-    genero, id, descripcion 
-        
+
     <resultMap type='Cliente' id="ClienteResult">
         
         <id property='documento' column='documento'/>
@@ -51,7 +49,7 @@
         <result property='direccion' column='direccion'/>
         <result property='email' column='email'/> 
         <result property='vetado' column='vetado'/>
-        <collection property='rentas' ofType='ItemRentado'resultMap="itemRentadoResult"></collection>
+        <collection property='rentas' ofType='ItemRentado'resultMap="itemRentadoResult" columnPrefix="irentado_"></collection>
    
     </resultMap>
 
@@ -59,10 +57,27 @@
         <id property='id' column='id'/>
         <result property='fechainiciorenta' column='fechainiciorenta'/>
         <result property='fechafinrenta' column='fechafinrenta'/> 
-        <association property="item" javaType="Item"></association>      
+        <association property="item" javaType="Item" columnPrefix="item_"></association>      
     </resultMap>
 
    
+
+    <resultMap type='Item' id='ItemResult'>
+        <id property='id' column='Id'/>
+        <result property='nombre' column='Nombre'/>
+        <result property='descripcion' column='Descripcion'/> 
+        <result property='fechalanzamiento' column='FechaLanzamiento'/> 
+        <result property='tarifaxdia' column='Tarifa'/> 
+        <result property='formatorenta' column='FormatoRenta'/> 
+        <result property='genero' column='Genero'/> 
+        <association property="tipoItem" javaType="TipoItem" columnPrefix="tItem_"></association>      
+    </resultMap>
+
+    <resultMap type='TipoItem' id='TipoItemResult'>
+        <id property='id' column='Id'/>
+        <result property='descripcion' column='Descripcion'/>            
+    </resultMap>
+
 
           	
 </mapper>
