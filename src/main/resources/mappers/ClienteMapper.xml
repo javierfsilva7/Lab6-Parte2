@@ -5,16 +5,16 @@
   
 <mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper">
     
-    <select parameterType="map" id="getClientes" resultMap="ClienteResult">
+    <select parameterType="map"  id="consultarClientes" resultMap="clienteResult">
             
         select
     
-        c.nombre as cliente_nombre,
-        c.documento as cliente_documento,
-        c.telefono as cliente_telefono,
-        c.direccion as cliente_direccion,
-        c.email as cliente_email,
-        c.vetado as cliente_vetado,
+        c.nombre as nombre,
+        c.documento as documento,
+        c.telefono as telefono,
+        c.direccion as direccion,
+        c.email as email,
+        c.vetado as vetado,
     
         ir.id as irentado_id,
         ir.fechainiciorenta as irentado_fechainiciorenta,
@@ -41,7 +41,7 @@
     </select>
 
 
-    <resultMap type='Cliente' id="ClienteResult">
+    <resultMap type='Cliente' id="clienteResult">
         
         <id property='documento' column='documento'/>
         <result property='nombre' column='nombre'/>
@@ -49,7 +49,7 @@
         <result property='direccion' column='direccion'/>
         <result property='email' column='email'/> 
         <result property='vetado' column='vetado'/>
-        <collection property='rentas' ofType='ItemRentado'resultMap="itemRentadoResult" columnPrefix="irentado_"></collection>
+        <collection property='rentados' ofType='ItemRentado' resultMap="itemRentadoResult" columnPrefix="irentado_"/>
    
     </resultMap>
 
@@ -57,7 +57,7 @@
         <id property='id' column='id'/>
         <result property='fechainiciorenta' column='fechainiciorenta'/>
         <result property='fechafinrenta' column='fechafinrenta'/> 
-        <association property="item" javaType="Item" columnPrefix="item_"></association>      
+        <association property="item" javaType="Item" columnPrefix="item_" resultMap="ItemResult"></association>      
     </resultMap>
 
    
@@ -70,7 +70,7 @@
         <result property='tarifaxdia' column='Tarifa'/> 
         <result property='formatorenta' column='FormatoRenta'/> 
         <result property='genero' column='Genero'/> 
-        <association property="tipoItem" javaType="TipoItem" columnPrefix="tItem_"></association>      
+        <association property="tipo" javaType="TipoItem" columnPrefix="tItem_" resultMap="TipoItemResult"></association>      
     </resultMap>
 
     <resultMap type='TipoItem' id='TipoItemResult'>
