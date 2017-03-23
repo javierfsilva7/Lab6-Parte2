@@ -5,7 +5,7 @@
   
 <mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper">
     
-    <select parameterType="map"  id="consultarClientes" resultMap="clienteResult">
+    <select  id="consultarClientes" resultMap="clientesResult">
             
         select
     
@@ -41,7 +41,7 @@
     </select>
 
 
-    <resultMap type='Cliente' id="clienteResult">
+    <resultMap type='Cliente' id="clientesResult">
         
         <id property='documento' column='documento'/>
         <result property='nombre' column='nombre'/>
@@ -57,12 +57,12 @@
         <id property='id' column='id'/>
         <result property='fechainiciorenta' column='fechainiciorenta'/>
         <result property='fechafinrenta' column='fechafinrenta'/> 
-        <association property="item" javaType="Item" columnPrefix="item_" resultMap="ItemResult"></association>      
+        <association property="item" javaType="Item" columnPrefix="item_" resultMap="itemResult"></association>      
     </resultMap>
 
    
 
-    <resultMap type='Item' id='ItemResult'>
+    <resultMap type='Item' id='itemResult'>
         <id property='id' column='Id'/>
         <result property='nombre' column='Nombre'/>
         <result property='descripcion' column='Descripcion'/> 
@@ -70,13 +70,69 @@
         <result property='tarifaxdia' column='Tarifa'/> 
         <result property='formatorenta' column='FormatoRenta'/> 
         <result property='genero' column='Genero'/> 
-        <association property="tipo" javaType="TipoItem" columnPrefix="tItem_" resultMap="TipoItemResult"></association>      
+        <association property="tipo" javaType="TipoItem" columnPrefix="tItem_" resultMap="tipoItemResult"></association>      
     </resultMap>
 
-    <resultMap type='TipoItem' id='TipoItemResult'>
+    <resultMap type='TipoItem' id='tipoItemResult'>
         <id property='id' column='Id'/>
         <result property='descripcion' column='Descripcion'/>            
     </resultMap>
+    
+    <select parameterType="map" id="consultarCliente" resultMap="clienteResult">
+            
+        select
+    
+        c.nombre as nombre,
+        c.documento as documento,
+        c.telefono as telefono,
+        c.direccion as direccion,
+        c.email as email,
+        c.vetado as vetado,
+    
+        ir.id as irentado_id,
+        ir.fechainiciorenta as irentado_fechainiciorenta,
+        ir.fechafinrenta as irentado_fechafinrenta,
+    
+        i.id as item_id,
+        i.nombre as item_nombre,
+        i.descripcion as item_descripcion,
+        i.fechalanzamiento as item_fechalanzamiento ,
+        i.tarifaxdia as item_tarifaxdia,
+        i.formatorenta as item_formatorenta ,
+        i.genero as item_genero ,        
+        
+        ti.id as tItem_id,
+        ti.descripcion as tItem_descripcion
+
+    
+        FROM VI_CLIENTES as c 
+        left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+        left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+        left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+        Where c.documento = #{idcli} 
+    
+   
+    </select>
+    
+     <resultMap type='Cliente' id="clienteResult">
+        
+        <id property='documento' column='documento'/>
+        <result property='nombre' column='nombre'/>
+        <result property='telefono' column='telefono'/> 
+        <result property='direccion' column='direccion'/>
+        <result property='email' column='email'/> 
+        <result property='vetado' column='vetado'/>
+        <collection property='rentados' ofType='ItemRentado' resultMap="itemRentadoResult" columnPrefix="irentado_"/>
+   
+    </resultMap>
+    
+    <insert id="agregarItemRentadoACliente"  parameterType="map">
+        insert into VI_ITEMRENTADO (CLIENTES_documento, ITEMS_id, fechainiciorenta, fechafinrenta) 
+        values (#{idcli},#{idit},#{fechainiciorenta},#{fechafinrenta})
+    </insert>
+    
+    
+
 
 
           	
