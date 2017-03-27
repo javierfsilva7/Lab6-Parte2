@@ -24,6 +24,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper;
 
 /**
@@ -69,8 +70,8 @@ public class MyBatisExample {
         
         ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
         //System.out.println(cm.consultarClientes()); 
-        System.out.println(cm.consultarCliente(1026585669)); 
-        
+        System.out.println(cm.consultarCliente(1014253075)); 
+        cm.agregarItemRentadoACliente(1014253075, 6, java.sql.Date.valueOf("2017-03-12"), java.sql.Date.valueOf("2017-03-20"));
         sqlss.commit();
 
         sqlss.close();

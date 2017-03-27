@@ -22,9 +22,9 @@ public interface ClienteMapper {
      * @param fechafin 
      */
     public void agregarItemRentadoACliente(@Param("idcli") int id, 
-            @Param("idit") int idit, 
-            @Param("fechainicio") Date fechainicio,
-            @Param("fechafin") Date fechafin);
+            @Param("iditem") int idit, 
+            @Param("fini") Date fechainicio,
+            @Param("ffin") Date fechafin);
 
     /**
      * Consultar todos los clientes
