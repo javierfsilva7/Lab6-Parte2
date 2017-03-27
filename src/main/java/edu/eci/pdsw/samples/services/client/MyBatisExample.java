@@ -26,12 +26,17 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.TipoItem;
 
 /**
  *
  * @author hcadavid
  */
 public class MyBatisExample {
+    
+    private Item it;
 
     /**
      * Método que construye una fábrica de sesiones de MyBatis a partir del
@@ -60,6 +65,8 @@ public class MyBatisExample {
      * @throws SQLException
      */
     public static void main(String args[]) throws SQLException {
+        
+              
         SqlSessionFactory sessionfact = getSqlSessionFactory();
 
         SqlSession sqlss = sessionfact.openSession();
@@ -71,11 +78,18 @@ public class MyBatisExample {
         ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
         //System.out.println(cm.consultarClientes()); 
         System.out.println(cm.consultarCliente(1014253075)); 
-        cm.agregarItemRentadoACliente(1014253075, 6, java.sql.Date.valueOf("2017-03-12"), java.sql.Date.valueOf("2017-03-20"));
+        //cm.agregarItemRentadoACliente(1014253075, 6, java.sql.Date.valueOf("2017-03-12"), java.sql.Date.valueOf("2017-03-20"));
         sqlss.commit();
-
+        
+        ItemMapper im = sqlss.getMapper(ItemMapper.class);
+        TipoItem tipo = new TipoItem(4, "Futbol");
+        Item it = new Item (tipo, 12, "SANTA FE ROTO", "Documental sobre el equipo mas roto de Colombia", java.sql.Date.valueOf("2012-12-12"), 1000, "AA", "Violencia");
+        im.insertarItem(it);
+                
         sqlss.close();
 
     }
 
 }
+
+

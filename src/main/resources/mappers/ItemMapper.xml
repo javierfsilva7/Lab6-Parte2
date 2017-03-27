@@ -7,8 +7,8 @@
 
     <insert id="insertarItem"  parameterType="map">
         insert into VI_ITEMS (id, nombre, descripcion, fechalanzamiento, tarifaxdia, formatorenta, genero, TIPOITEM_id) 
-        values (#{item.id}, #{item.nombre}, #{item.descripcion}, #{item.fechalanzamiento},
-        #{item.tarifaxDia}, #{item.formatorenta}, #{item.genero}, #{item.tipo})
+        values (#{item.id}, #{item.nombre}, #{item.descripcion}, #{item.fechaLanzamiento},
+        #{item.tarifaxDia}, #{item.formatoRenta}, #{item.genero}, #{item.tipo.id})
     </insert>
     
     
