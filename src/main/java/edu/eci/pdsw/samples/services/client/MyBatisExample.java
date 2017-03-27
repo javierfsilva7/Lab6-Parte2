@@ -76,15 +76,18 @@ public class MyBatisExample {
         //cm...
         
         ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
+        
         //System.out.println(cm.consultarClientes()); 
         System.out.println(cm.consultarCliente(1014253075)); 
         //cm.agregarItemRentadoACliente(1014253075, 6, java.sql.Date.valueOf("2017-03-12"), java.sql.Date.valueOf("2017-03-20"));
         sqlss.commit();
         
         ItemMapper im = sqlss.getMapper(ItemMapper.class);
-        TipoItem tipo = new TipoItem(4, "Futbol");
-        Item it = new Item (tipo, 12, "SANTA FE ROTO", "Documental sobre el equipo mas roto de Colombia", java.sql.Date.valueOf("2012-12-12"), 1000, "AA", "Violencia");
-        im.insertarItem(it);
+        //TipoItem tipo = new TipoItem(4, "Futbol");
+        //Item it = new Item (tipo, 12, "SANTA FE ROTO", "Documental sobre el equipo mas roto de Colombia", java.sql.Date.valueOf("2012-12-12"), 1000, "AA", "Violencia");
+        //im.insertarItem(it);
+        
+        System.out.println(im.consultarItem(12));
                 
         sqlss.close();
 

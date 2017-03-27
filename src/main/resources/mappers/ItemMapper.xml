@@ -11,5 +11,31 @@
         #{item.tarifaxDia}, #{item.formatoRenta}, #{item.genero}, #{item.tipo.id})
     </insert>
     
+    <select id="consultarItem" resultMap="itemResult" parameterType="map">
+        select  i.id, i.nombre, i.descripcion, i.fechaLanzamiento,
+        i.tarifaxDia, i.formatoRenta, i.genero, t.id, t.descripcion
+        
+        from VI_ITEMS i, VI_TIPOITEM t
+        
+        where i.TIPOITEM_id = t.id
+        and i.id=#{id}
+       
+    </select>
     
+    <resultMap type='Item' id='itemResult'>
+        <id property='id' column='Id'/>
+        <result property='nombre' column='Nombre'/>
+        <result property='descripcion' column='Descripcion'/> 
+        <result property='fechalanzamiento' column='FechaLanzamiento'/> 
+        <result property='tarifaxdia' column='Tarifa'/> 
+        <result property='formatorenta' column='FormatoRenta'/> 
+        <result property='genero' column='Genero'/> 
+        <association property="tipo" javaType="TipoItem" columnPrefix="tItem_" resultMap="tipoItemResult"></association>      
+    </resultMap>
+    
+    <resultMap type='TipoItem' id='tipoItemResult'>
+        <id property='id' column='Id'/>
+        <result property='descripcion' column='Descripcion'/>            
+    </resultMap>
 </mapper>
+    

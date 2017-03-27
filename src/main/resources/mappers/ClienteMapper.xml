@@ -48,7 +48,7 @@
         <result property='direccion' column='direccion'/>
         <result property='email' column='email'/> 
         <result property='vetado' column='vetado'/>
-        <collection property='rentados' ofType='ItemRentado' resultMap="itemRentadoResult" columnPrefix="irentado_"/>
+        <collection property='rentados' ofType='ItemRentado' resultMap="itemRentadoResult" columnPrefix="irentado_" />
    
     </resultMap>
     
@@ -58,26 +58,13 @@
         <id property='id' column='id'/>
         <result property='fechainiciorenta' column='fechainiciorenta'/>
         <result property='fechafinrenta' column='fechafinrenta'/> 
-        <association property="item" javaType="Item" columnPrefix="item_" resultMap="itemResult"></association>      
+        <association property="item" javaType="Item" columnPrefix="item_" resultMap="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper.itemResult" ></association>      
     </resultMap>
 
    
+   
 
-    <resultMap type='Item' id='itemResult'>
-        <id property='id' column='Id'/>
-        <result property='nombre' column='Nombre'/>
-        <result property='descripcion' column='Descripcion'/> 
-        <result property='fechalanzamiento' column='FechaLanzamiento'/> 
-        <result property='tarifaxdia' column='Tarifa'/> 
-        <result property='formatorenta' column='FormatoRenta'/> 
-        <result property='genero' column='Genero'/> 
-        <association property="tipo" javaType="TipoItem" columnPrefix="tItem_" resultMap="tipoItemResult"></association>      
-    </resultMap>
-
-    <resultMap type='TipoItem' id='tipoItemResult'>
-        <id property='id' column='Id'/>
-        <result property='descripcion' column='Descripcion'/>            
-    </resultMap>
+    
     
     <select parameterType="map" id="consultarCliente" resultMap="clienteResult">
             
