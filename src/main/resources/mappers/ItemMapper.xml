@@ -13,7 +13,9 @@
     
     <select id="consultarItem" resultMap="itemResult" parameterType="map">
         select  i.id, i.nombre, i.descripcion, i.fechaLanzamiento,
-        i.tarifaxDia, i.formatoRenta, i.genero, t.id, t.descripcion
+        i.tarifaxDia, i.formatoRenta, i.genero,
+        t.id as tItem_id,
+        t.descripcion as tItem_descripcion
         
         from VI_ITEMS i, VI_TIPOITEM t
         
@@ -26,9 +28,9 @@
         <id property='id' column='Id'/>
         <result property='nombre' column='Nombre'/>
         <result property='descripcion' column='Descripcion'/> 
-        <result property='fechalanzamiento' column='FechaLanzamiento'/> 
+        <result property='fechaLanzamiento' column='FechaLanzamiento'/> 
         <result property='tarifaxdia' column='Tarifa'/> 
-        <result property='formatorenta' column='FormatoRenta'/> 
+        <result property='formatoRenta' column='FormatoRenta'/> 
         <result property='genero' column='Genero'/> 
         <association property="tipo" javaType="TipoItem" columnPrefix="tItem_" resultMap="tipoItemResult"></association>      
     </resultMap>
@@ -37,5 +39,18 @@
         <id property='id' column='Id'/>
         <result property='descripcion' column='Descripcion'/>            
     </resultMap>
+    
+    <select id="getItems" resultMap="itemResult" parameterType="map">
+        
+        select  i.id, i.nombre, i.descripcion, i.fechaLanzamiento,
+        i.tarifaxDia, i.formatoRenta, i.genero,
+        t.id as tItem_id,
+        t.descripcion as tItem_descripcion
+        
+        from VI_ITEMS as i left join VI_TIPOITEM as t on i.TIPOITEM_id=t.id 
+        
+       
+    </select>
+    
 </mapper>
     
